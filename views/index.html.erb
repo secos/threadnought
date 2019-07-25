@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>The Threadnaught</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>window.twttr = (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+
+      return t;
+    }(document, "script", "twitter-wjs"));
+    </script>    
+  </head>
+  <body>
+    <div class="container">
+      <h1>The Threadnaught!</h1>
+      <div class="row">
+        <div class="col-sm-2">
+          <div class="list-group">
+            <div class="list-group-item list-group-item-light">Day</div>
+            <% @date_counts.each do |dt, count| %>
+              <a href="<%= "/#{dt.to_s}" %>" class="list-group-item d-flex justify-content-between align-items-center <%= "active" if dt == @date %>"><%= dt.strftime("%b %d") %>
+                <span class="badge badge-light badge-pill"><%= count %></span>
+              </a>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-sm-10">
+          <div class="container">
+            <% @tweets.each do |row| tweet = row[:tweet] %>
+              <blockquote class="twitter-tweet" data-lang="en" data-conversation="none">
+                <p lang="en" dir="ltr"><%= tweet["text"] %></p>
+                &mdash; <%= tweet["user"]["name"] %> (@<%= tweet["user"]["screen_name"]%>) <a href="https://twitter.com/<%=tweet["user"]["screen_name"]%>/status/<%=tweet["id"]%>"> <%= row[:created_at].strftime("%D") %></a>
+              </blockquote>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
