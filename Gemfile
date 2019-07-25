@@ -12,3 +12,4 @@ gem 'twitter'
 gem 'activesupport'
 
 gem 'byebug'
+gem 'irb'

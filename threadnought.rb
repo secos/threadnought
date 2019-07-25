@@ -20,7 +20,7 @@ get '/:date?' do
   bod = @date.beginning_of_day
   eod = @date.end_of_day
 
-  @tweets = DB[:tweets].where{created_at > bod}.where{created_at < eod}
+  @tweets = DB[:tweets].where{created_at > bod}.where{created_at < eod}.reverse
 
   erb :"index.html"
 end
